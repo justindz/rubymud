@@ -1,0 +1,40 @@
+--- !ruby/object:Player 
+characters: 
+  God: !ruby/object:Character 
+    name: God
+    str: 10
+    will: 10
+    dex: 10
+    hp: 10
+    focus: 10
+    actions: 1
+    points: 0
+    coins: 3
+    region: 0
+    area: 0
+    items: 
+      1067246: !ruby/object:Armor 
+        damage_bonus: 0
+        description: LONGER DESCRIPTION
+        flags: []
+        name: pants
+        short_desc: some really swank pants
+        type: :legs
+        value: 2
+        weight: 3
+    equipment: 
+      :wield: !ruby/object:Weapon 
+        damage_bonus: 1
+        damage_dice: 4
+        description: LONG DESCRIPTION
+        dice_count: 1
+        flags: 
+          - :indestructible
+        name: knife
+        short_desc: a small knife is balancing here on its point
+        value: 2
+        weight: 1
+    damage_bonus: 1
+    armor_bonus: 0
+password: be7814fb254673ec0bd54082d921940a52ff9bf6
+username: justindz

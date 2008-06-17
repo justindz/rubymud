@@ -1,0 +1,20 @@
+--- !ruby/object:Region 
+areas: 
+  - !ruby/object:Area 
+    characters: {}
+    description: Busy as a bee.
+    exits: 
+      east: 1
+    name: Library
+    num: 0
+    region: 0
+  - !ruby/object:Area 
+    characters: {}
+    description: Hippies abound.
+    exits: 
+      west: 0
+    name: Wall
+    num: 1
+    region: 0
+name: Town
+num: 0

@@ -1,0 +1,14 @@
+---
+debug: true
+port: 23555
+max_connections: 5
+max_characters_per_player: 3
+world:
+  name: Shepherdstown
+  description: Totally hip, man.
+messages:
+  login: Welcome to Shepherdstown.  This is an MMORPG - Moderately Multiplayer Online Roleplaying Game.  But, you know, with text.  A picture may be worth a thousand words, but a thousand words leaves more space for your imagination to fill.
+  username_prompt: username> 
+  password_prompt: password> 
+  character_prompt: Which character would you like to use?
+  login_retry: Your login failed.  Perhaps you don't know who you are?  Or, perhaps you were being naughty and attempting a multi-login.
