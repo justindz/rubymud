@@ -69,8 +69,13 @@ class Client
 		login
 		command = Command.new(@c, @s, self)
 		while command.online
-			prompt
-			args = @s.gets.chomp!.split
+		  begin
+			  prompt
+			  args = @s.gets.chomp!.split
+			rescue NoMethodError
+			  disconnect(command)
+			  return false
+			end
 			methd = args[0]
 			args.delete_at(0)
 			begin
@@ -85,15 +90,30 @@ class Client
 						command.send(methd, args)
 					end
 				end
-			rescue NoMethodError, ArgumentError
+			rescue NoMethodError
 				@s.puts "I don't recognize that command."
+			rescue ArgumentError => e
+			  @s.puts "The arguments you've supplied are incorrect."
+			  puts "ArgumentError for #{methd} using '#{args}'."
+			  args.each do |arg|
+			    puts arg.class
+			  end
 			rescue TypeError
 				puts "TypeError for #{methd} : #{args} in client."
 			end
 		end
-		save
+		disconnect(command)
+	end
+	
+	def disconnect(command)
+	  command.send("quit", [])
+	  save
+	  unless @s.closed?
+  	  @s.close
+  	end
 		@world.players[@player.username] = false
 		puts "#{@player.username} disconnected."
+		terminate
 	end
 	
 	# DELEGATES TO CHARACTER

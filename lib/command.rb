@@ -32,7 +32,7 @@ class Command
 				@s.puts @c.area.npc(args[0]).description
 			elsif @c.area.has_item?(args[0])
 				@s.puts @c.area.item(args[0]).description
-			elsif @c.has_item?(args[0])
+			elsif @c.item(args[0])
 				@s.puts @c.item(args[0]).description
 			elsif @c.area.exits.has_key?(args[0])
 				@s.puts @c.area.exits[args[0]] # this should be an exit description
@@ -111,10 +111,10 @@ class Command
 	
 	alias pickup get
 	
-	def drop(item)
-		if @c.has_item?(item[0])
-			target = @c.item(item[0])
-			if @c.drop(target)
+	def drop(i)
+		if @c.item(i[0])
+			target = @c.item(i[0])
+			if @c.drop(i[0])
 				@client.changed
 				@client.notify_observers(:dropped, [@c, target])
 			else
@@ -125,10 +125,10 @@ class Command
 		end
 	end
 	
-	def destroy(item)
-		if @c.has_item?(item[0])
-			target = @c.item(item[0])
-			if @c.destroy(target)
+	def destroy(i)
+		if @c.item(i[0])
+			target = @c.item(i[0])
+			if @c.destroy(i[0])
 				@client.changed
 				@client.notify_observers(:destroyed, [@c, target])
 			else
@@ -141,10 +141,11 @@ class Command
 	
 	alias junk destroy
 	
-	def wield(item)
-		if @c.has_item?(item[0])
-			target = @c.item(item[0])
-			if @c.wield(target)
+	def wield(i)
+	  i = i.to_i
+		if @c.item(i)
+			target = @c.item(i)
+			if @c.wield(i)
 				@client.changed
 				@client.notify_observers(:wield, [@c, target])
 			else
@@ -157,7 +158,7 @@ class Command
 	
 	alias wie wield
 	
-	def unwield(item)
+	def unwield(item) # Since you can only wield one item, could change this to not require or use any args
 		if @c.wield_item?(item[0])
 			target = @c.equipment[:wield]
 			if @c.unwield(target)
@@ -175,8 +176,8 @@ class Command
 	
 	def inventory(args)
 		@s.puts "\nInventory\n---------\n"
-		@c.items.each_value do |i|
-			@s.puts "#{i.inventory_name}"
+		@c.items.each_with_index do |item, index|
+			@s.puts "[#{index}]\t#{item.inventory_name}"
 		end
 		@s.puts "\n"
 	end
@@ -223,11 +224,10 @@ class Command
 	end
 	
 	def quit(args)
-		@s.puts "Saving..."
-		@s.puts "Goodbye."
-		@client.changed
-		@client.notify_observers(:left, @c)
-		@s.close
+		unless @s.closed?
+		  @s.puts "Saving..."
+		  @s.puts "Goodbye."
+  	end
 		@online = false
 	end
 end

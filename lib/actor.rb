@@ -10,7 +10,7 @@ class Actor
 		@damage_bonus = @armor_bonus = 0
 		@points = @burden = 0
 		@coins = 3
-		@items = Hash.new
+		@items = []
 		@equipment = Hash.new
 		@beat_count = 0
 	end
@@ -34,7 +34,7 @@ class Actor
 	end
 	
 	def has_item?(name)
-		@items.each_value do |i|
+		@items.each do |i|
 			return true if i.name == name
 		end
 		return false
@@ -48,10 +48,8 @@ class Actor
 		end
 	end
 	
-	def item(name)
-		items.each_value do |i|
-			return i if i.name == name
-		end
-		return nil
+	def item(i)
+	  return false if i < 0
+		i >= @items.size ? false : @items[i]
 	end
 end

@@ -3,7 +3,7 @@ require 'socket'
 require 'observer'
 require 'thread'
 require 'rubygems'
-require_gem 'term-ansicolor'
+require 'term/ansicolor'
 
 require 'lib/responder'
 require 'lib/item'
@@ -71,7 +71,7 @@ knife.indestructible
 world.heart.add_observer(knife)
 a.items[knife.object_id] = knife
 
-pants = Armor.new('pants', 'some really swank pants', 'LONGER DESCRIPTION', 0, 2, 3, 2, :legs)
+pants = Armor.new('pants', 'some really swank pants lie here', 'LONGER DESCRIPTION', 0, 2, 3, 2, :legs)
 world.heart.add_observer(pants)
 a.items[pants.object_id] = pants
 #/test

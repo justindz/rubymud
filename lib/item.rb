@@ -2,6 +2,7 @@ class Item
 	include Observable
 	include Responder
 	include Term::ANSIColor
+	
 	attr_accessor(:name, :short_desc, :description, :damage_bonus, :armor_bonus, :weight, :value, :flags)
 	
 	def initialize(name, short_desc, description, damage_bonus, armor_bonus, weight, value)

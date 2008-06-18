@@ -12,13 +12,7 @@ characters:
     coins: 3
     region: 0
     area: 0
-    items: 
-      knife: !ruby/object:Item 
-        description: LONG DESCRIPTION
-        name: knife
-        short_desc: a small knife is balancing here on its point
-        value: 2
-        weight: 1
+    items: {}
     equipment: {}
     damage_bonus: 0
     armor_bonus: 0

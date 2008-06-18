@@ -17,7 +17,7 @@ class Character < Actor
 		@actions = @dex / 10
 		@burden = 0
 		@beat_count = 0
-		items.each_value do |i|
+		items.each do |i|
 			@burden += i.weight
 		end
 	end
@@ -44,31 +44,35 @@ class Character < Actor
 		if @burden + item.weight <= @str
 			@burden += item.weight
 			@client.add_observer(item)
-			@items[item.object_id] = item
+			@items.push(item)
 			return true
 		else
 			return false
 		end
 	end
 	
-	def drop(item)
+	def drop(i)
+	  item = item(i)
+	  return false if item.nil?
 		if item.cursed?
 			return false
 		else
 			@burden -= item.weight
 			@client.delete_observer(item)
-			@items.delete(item.object_id)
+			@items.delete_at(i)
 			return true
 		end
 	end
 	
-	def wield(item)
+	def wield(i)
+	  item = item(i)
+	  return false if item.nil?
 		return false unless item.type == :wield
 		if @equipment[:wield].nil? #modify so that weapons will automatically unwield when you wield something else
 			#test to see if character can wield
 			@equipment[:wield] = item
 			@damage_bonus += item.damage_bonus
-			@items.delete(item.object_id)
+			@items.delete_at(i)
 			return true
 		else
 			return false
@@ -76,19 +80,21 @@ class Character < Actor
 	end
 	
 	def unwield(item)
-		@items[item.object_id] = item
+		@items.push(item)
 		@equipment.delete(:wield)
 		@damage_bonus -= item.damage_bonus
 		return true
 	end
 	
-	def destroy(item)
+	def destroy(i)
+	  item = item(i)
+	  return false if item.nil?
 		if item.cursed? || item.indestructible?
 			return false
 		else
 			@burden -= item.weight
 			@client.delete_observer(item)
-			@items.delete(item.object_id)
+			@items.delete_at(i)
 			return true
 		end
 	end

@@ -17,7 +17,7 @@ class NPC < Actor
 	
 	def event_beat(args)
 		@beat_count += 1
-		if @beat_count % 4 == 0 && !@fighting
+		if @beat_count % 8 == 0 && !@fighting
 			@area.characters.each do |c|
 				changed
 				notify_observers(:say, [self,"Hi, #{c[1].name}."])
