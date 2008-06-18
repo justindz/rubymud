@@ -112,6 +112,7 @@ class Command
 	alias pickup get
 	
 	def drop(i)
+	  i = i[0].to_i
 		if @c.item(i[0])
 			target = @c.item(i[0])
 			if @c.drop(i[0])
@@ -126,6 +127,7 @@ class Command
 	end
 	
 	def destroy(i)
+	  i = i[0].to_i
 		if @c.item(i[0])
 			target = @c.item(i[0])
 			if @c.destroy(i[0])
@@ -142,7 +144,7 @@ class Command
 	alias junk destroy
 	
 	def wield(i)
-	  i = i.to_i
+	  i = i[0].to_i
 		if @c.item(i)
 			target = @c.item(i)
 			if @c.wield(i)

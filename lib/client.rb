@@ -90,8 +90,9 @@ class Client
 						command.send(methd, args)
 					end
 				end
-			rescue NoMethodError
+			rescue NoMethodError => e
 				@s.puts "I don't recognize that command."
+				puts "NoMethodError for #{methd} using '#{args}': #{e}."
 			rescue ArgumentError => e
 			  @s.puts "The arguments you've supplied are incorrect."
 			  puts "ArgumentError for #{methd} using '#{args}'."
