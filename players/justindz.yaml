@@ -11,7 +11,7 @@ characters:
     points: 0
     coins: 3
     region: 0
-    area: 1
+    area: 0
     items: 
     - !ruby/object:Weapon 
       damage_bonus: 1

@@ -116,6 +116,14 @@ class Area
 		notify_observers(:say, args)
 	end
 	
+	def event_quit(args) #args == [Character]
+	  changed
+	  notify_observers(:quit, args)
+	  @characters.delete(args.name)
+		delete_observer(args.client)
+		args.client.delete_observer(self)
+	end
+	
 	def event_go(args) #args == [Character|NPC,Area]
 		case args[0]
 		when Character

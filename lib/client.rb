@@ -106,14 +106,16 @@ class Client
 	end
 	
 	def disconnect(command)
-	  command.send("quit", [])
 	  save
+	  changed
+		notify_observers(:quit, @c)
+		command.send("quit", [])
+		@world.players[@player.username] = false
 	  unless @s.closed?
   	  @s.close
   	end
-		@world.players[@player.username] = false
 		puts "#{@player.username} disconnected."
-		terminate
+		return true
 	end
 	
 	# DELEGATES TO CHARACTER
