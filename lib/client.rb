@@ -110,7 +110,7 @@ class Client
 	  save
 	  changed
 		notify_observers(:quit, @c)
-		command.send("quit", [])
+		command.send("quit", "disconnected")
 		@world.players[@player.username] = false
 	  unless @s.closed?
   	  @s.close

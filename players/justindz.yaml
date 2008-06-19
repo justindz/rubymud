@@ -11,7 +11,7 @@ characters:
     points: 0
     coins: 3
     region: 0
-    area: 1
+    area: 0
     items: 
     - !ruby/object:Weapon 
       damage_bonus: 1
@@ -24,16 +24,6 @@ characters:
       short_desc: a small knife is balancing here on its point
       value: 2
       weight: 1
-    - !ruby/object:Armor 
-      damage_bonus: 0
-      description: LONGER DESCRIPTION
-      flags: []
-
-      name: pants
-      short_desc: some really swank pants lie here
-      type: :legs
-      value: 2
-      weight: 3
     equipment: {}
 
     damage_bonus: 0

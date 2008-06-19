@@ -95,7 +95,17 @@ class Command
 	end
 	
 	def get(item)
-		if @c.area.has_item?(item[0])
+	  if item[0] == "all"
+	    @c.area.items.each do |i|
+	      if @c.pickup(i)
+  	      @client.changed
+	        @client.notify_observers(:picked, [@c, i])
+	        @s.puts "You feel a strange attachment to this #{i.name}." if i.cursed?
+        else
+          @s.puts "You're not strong enough to pick up a #{i.name}."
+        end
+	    end
+		elsif @c.area.has_item?(item[0])
 			target = @c.area.item(item[0])
 			if @c.pickup(target)
 				@client.changed
@@ -105,7 +115,7 @@ class Command
 				@s.puts "You're not strong enough to pick that up."
 			end
 		else
-			@s.puts "I don't see that item here."
+			@s.puts "You don't see that here."
 		end
 	end
 	
@@ -113,13 +123,13 @@ class Command
 	
 	def drop(i)
 	  i = i[0].to_i
-		if @c.item(i[0])
-			target = @c.item(i[0])
-			if @c.drop(i[0])
+		if @c.item(i)
+			target = @c.item(i)
+			if @c.drop(i)
 				@client.changed
 				@client.notify_observers(:dropped, [@c, target])
 			else
-				@s.puts "You can't bring yourself to discard your #{target.name}.  It's either cursed or a video game controller."
+				@s.puts "You can't discard your #{target.name}.  It's either cursed or a video game controller (or both)."
 			end
 		else
 			@s.puts "You don't appear to have that."
@@ -128,9 +138,9 @@ class Command
 	
 	def destroy(i)
 	  i = i[0].to_i
-		if @c.item(i[0])
-			target = @c.item(i[0])
-			if @c.destroy(i[0])
+		if @c.item(i)
+			target = @c.item(i)
+			if @c.destroy(i)
 				@client.changed
 				@client.notify_observers(:destroyed, [@c, target])
 			else
@@ -226,7 +236,7 @@ class Command
 	end
 	
 	def quit(args)
-		unless @s.closed?
+		unless @s.closed? or args == "disconnected"
 		  @s.puts "Saving..."
 		  @s.puts "Goodbye."
   	end

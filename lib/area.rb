@@ -40,7 +40,7 @@ class Area
 	end
 	
 	def view(character)
-		"#{@name}\n\n#{@description}\n\nExits: #{exit_list}\n#{character_list(character)}\n#{npc_list}\n#{item_list}\n"
+		"\n[#{@name}]\n\n#{@description}\n\nExits: #{exit_list}#{character_list(character)}#{npc_list}#{item_list}"
 	end
 	
 	def has_item?(name)
@@ -73,38 +73,44 @@ class Area
 	
 	def exit_list
 		list = ""
-		if !@exits.nil?
+		unless @exits.empty?
 			@exits.each_key do |key|
-				list += "#{key}\n"
+				list += "#{key} "
 			end
+			list += "\n"
 		end
 		return list
 	end
 	
 	def character_list(character)
 		list = ""
-		@characters.each_value do |c|
-			list += "#{c.name} is here\n" unless c == character
+		unless @characters.empty?
+  		@characters.each_value do |c|
+	  		list += "#{c.name} is here\n" unless c == character
+		  end
+		  list += "\n"
 		end
 		return list
 	end
 	
 	def npc_list
 		list = ""
-		if !@npcs.nil?
+		unless @npcs.empty?
 			@npcs.each_value do |n|
 				list += "#{n.name} is here\n"
 			end
+			list += "\n"
 		end
 		return list
 	end
 	
 	def item_list
 		list = ""
-		if !@items.nil?
+		unless @items.empty?
 			@items.each_value do |i|
 				list += "#{i.short_desc}\n"
 			end
+			list += "\n"
 		end
 		return list
 	end
