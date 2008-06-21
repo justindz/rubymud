@@ -11,8 +11,18 @@ characters:
     points: 0
     coins: 3
     region: 0
-    area: 0
+    area: 1
     items: 
+    - !ruby/object:Armor 
+      damage_bonus: 0
+      description: LONGER DESCRIPTION
+      flags: []
+
+      name: pants
+      short_desc: some really swank pants lie here
+      type: :legs
+      value: 2
+      weight: 3
     - !ruby/object:Weapon 
       damage_bonus: 1
       damage_dice: 4
