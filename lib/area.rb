@@ -40,7 +40,7 @@ class Area
 	end
 	
 	def view(character)
-		"\n[#{@name}]\n\n#{@description}\n\nExits: #{exit_list}#{character_list(character)}#{npc_list}#{item_list}"
+		"\n#{@name.cyan}\n\n#{@description}\n\n#{exit_list.cyan}#{character_list(character)}#{npc_list}#{item_list.green}"
 	end
 	
 	def has_item?(name)
@@ -72,7 +72,7 @@ class Area
 	end
 	
 	def exit_list
-		list = ""
+		list = "Exits: "
 		unless @exits.empty?
 			@exits.each_key do |key|
 				list += "#{key} "
@@ -110,7 +110,6 @@ class Area
 			@items.each_value do |i|
 				list += "#{i.short_desc}\n"
 			end
-			list += "\n"
 		end
 		return list
 	end
