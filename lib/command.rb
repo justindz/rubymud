@@ -122,17 +122,28 @@ class Command
 	alias pickup get
 	
 	def drop(i)
-	  i = i[0].to_i
-		if @c.item(i)
-			target = @c.item(i)
-			if @c.drop(i)
-				@client.changed
-				@client.notify_observers(:dropped, [@c, target])
-			else
-				@s.puts "You can't discard your #{target.name}.  It's either cursed or a video game controller (or both)."
-			end
-		else
-			@s.puts "You don't appear to have that."
+	  if i[0] == "all"
+	    @c.items.each_with_index do |item, index|
+	      if @c.drop(index)
+	        @client.changed
+	        @client.notify_observers(:dropped, [@c, item])
+	      else
+	        @s.puts "You can't discard your #{item.name}.  It's either cursed or a video game controller (or both)."
+	      end
+      end
+    else
+	    i = i[0].to_i
+		  if @c.item(i)
+			  target = @c.item(i)
+			  if @c.drop(i)
+				  @client.changed
+				  @client.notify_observers(:dropped, [@c, target])
+			  else
+				  @s.puts "You can't discard your #{target.name}.  It's either cursed or a video game controller (or both)."
+			  end
+		  else
+			  @s.puts "You don't appear to have that."
+		  end
 		end
 	end
 	

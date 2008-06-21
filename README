@@ -1,0 +1,18 @@
+== rubymud - a simple (really, really simple) MUD in ruby ==
+
+I started this project a while ago to learn Ruby.  MUDs are always a good start since they involve client/server, threading, serialization, event handling, etc.  I've recently decided to keep it going because I have a game idea in my head (and now on the github wiki).  Feel free to get involved.
+
+Run builder.rb to generate some test areas as YAML.
+Run server.rb after that to get the thing going.
+Fido's annoying.  Sorry about that.
+I really need rspec and unit tests.  Sorry about that, too.  I was young.
+
+In a nutshell, Worlds hold areas, areas hold items, npcs and characters.  NPCs and characters are actors for DRY reasons (although I made some oversights there I've yet to correct).  When a user connects a thread is spawned off with a client that logs the user in and handles the session and input.  Input is shunted off to at command object which uses reflection to convert user input in to a method and a set of args to the method.  The method does stuff with those args or goes NoMethod if there's no match.  The client catches NoMethod and informs the user of his mistake, gently, like the Pope addressing a mild sinner.
+
+Observer/responder is used to allow NPCs, objects, areas and characters keep track of what happens in their inventory and area.  Basically, anything can catch any event it wants and react.  That's a little primitive as to how the array of details are passed.  I need to improve the way it works, but for now there are comments indicating what might come as either an and comma or and or pipe.  I'll make it better after I make me smarter.
+
+If you do want to get involved, please read the wiki.  If you like the idea, bug me to make the Backpack page public.
+
+Love,
+
+Justin
