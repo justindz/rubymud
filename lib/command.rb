@@ -96,7 +96,7 @@ class Command
 	
 	def get(item)
 	  if item[0] == "all"
-	    @c.area.items.each do |i|
+	    @c.area.items.each_value do |i|
 	      if @c.pickup(i)
   	      @client.changed
 	        @client.notify_observers(:picked, [@c, i])
