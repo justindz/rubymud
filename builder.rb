@@ -1,7 +1,7 @@
 require 'yaml'
 require 'observer'
 require 'rubygems'
-require_gem 'term-ansicolor'
+require 'term/ansicolor'
 
 require 'lib/responder'
 require 'lib/item'

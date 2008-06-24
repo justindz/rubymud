@@ -1,3 +1,5 @@
+require 'lib/actor'
+
 class Character < Actor
 	attr_accessor(:client)
 	

@@ -13,12 +13,31 @@ characters:
     region: 0
     area: 1
     items: 
+    - !ruby/object:Weapon 
+      damage_bonus: 1
+      damage_dice: 4
+      description: LONG DESCRIPTION
+      dice_count: 1
+      flags: 
+      - :indestructible
+      name: knife
+      short_desc: a small knife is balancing here on its point
+      value: 2
+      weight: 1
     - !ruby/object:Armor 
       damage_bonus: 0
       description: LONGER DESCRIPTION
       flags: []
-<<<<<<< HEAD:players/justindz.yaml
-=======
+
+      name: pants
+      short_desc: some really swank pants lie here
+      type: :legs
+      value: 2
+      weight: 3
+    - !ruby/object:Armor 
+      damage_bonus: 0
+      description: LONGER DESCRIPTION
+      flags: []
 
       name: pants
       short_desc: some really swank pants lie here
@@ -37,26 +56,8 @@ characters:
       value: 2
       weight: 1
     equipment: {}
->>>>>>> db5cc942e363f9c9c2fc78d0f4ad24f1ce8fbe09:players/justindz.yaml
 
-      name: pants
-      short_desc: some really swank pants lie here
-      type: :legs
-      value: 2
-      weight: 3
-    equipment: 
-      :wield: !ruby/object:Weapon 
-        damage_bonus: 1
-        damage_dice: 4
-        description: LONG DESCRIPTION
-        dice_count: 1
-        flags: 
-        - :indestructible
-        name: knife
-        short_desc: a small knife is balancing here on its point
-        value: 2
-        weight: 1
-    damage_bonus: 1
+    damage_bonus: 0
     armor_bonus: 0
 password: be7814fb254673ec0bd54082d921940a52ff9bf6
 username: justindz
