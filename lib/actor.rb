@@ -48,8 +48,22 @@ class Actor
 		end
 	end
 	
+	def wear_item?(name)
+	  @equipment.each do |eq|
+	    return true if eq.name == name
+	  end
+	  return false
+	end
+	
 	def item(i)
 	  return false if i < 0
 		i >= @items.size ? false : @items[i]
+	end
+	
+	def item_by_name(name)
+	  @items.each do |i|
+	    return i if i.name == name
+	   end
+	  return nil
 	end
 end

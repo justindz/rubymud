@@ -67,31 +67,66 @@ class Character < Actor
 	end
 	
 	def wield(i)
-	  item = item(i)
-	  return false if item.nil?
-		return false unless item.type == :wield
-		if @equipment[:wield].nil? #modify so that weapons will automatically unwield when you wield something else
-			#test to see if character can wield
-			@equipment[:wield] = item
-			@damage_bonus += item.damage_bonus
-			@items.delete_at(i)
-			return true
+	  if item = item(i)
+		  return false unless item.type == :wield
+		  if @equipment[:wield].nil? #modify so that weapons will automatically unwield when you wield something else
+			  #test to see if character can wield
+			  @equipment[:wield] = item
+			  @damage_bonus += item.damage_bonus #refactor
+			  @armor_bonus += item.armor_bonus #refactor
+			  @items.delete_at(i)
+			  return true
+		  else
+			  return false
+		  end
 		else
-			return false
+		  return false
 		end
 	end
 	
 	def unwield(item)
-		@items.push(item)
-		@equipment.delete(:wield)
-		@damage_bonus -= item.damage_bonus
-		return true
+	  unless @equipment[:wield].nil?
+  		@items.push(item)
+	  	@equipment.delete(:wield)
+	  	@damage_bonus -= item.damage_bonus
+	  	@armor_bonus -= item.armor_bonus
+	  	return true
+	  else
+	    return false
+	  end
+	end
+	
+	def wear(i)
+	  if item = item(i)
+	    return false unless item.class == Armor.class
+	    if @equipment[item.type].nil?
+	      @equipment[item.type] = item
+	      @damage_bonus += item.damage_bonus #refactor
+	      @armor_bonus += item.armor_bonus #refactor
+	      @items.delete_at(i)
+	      return true
+	    else
+	      return false
+	    end
+	  end
+	end
+	
+	def remove(type)
+	  item = @equipment[type]
+	  unless item.nil?
+	    @items.push(item)
+	    @equipment.delete(type)
+	    @damage_bonus -= item.damage_bonus
+	    @armor_bonus -= item.armor_bonus
+	    return true
+    else
+      return false
+    end
 	end
 	
 	def destroy(i)
 	  item = item(i)
-	  return false if item.nil?
-		if item.cursed? || item.indestructible?
+		if item.nil? || item.cursed? || item.indestructible?
 			return false
 		else
 			@burden -= item.weight

@@ -193,9 +193,19 @@ class Area
 		notify_observers(:wield, args)
 	end
 	
-	def event_unwield(args) #args == [Characer,Item]
+	def event_unwield(args) #args == [Character,Item]
 		changed
 		notify_observers(:unwield, args)
+	end
+	
+	def event_wear(args) #args == [Character,Item]
+	  changed
+	  notify_observers(:wear, args)
+	end
+	
+	def event_remove(args) #args == [Character,Item]
+	  changed
+	  notify_observers(:remove, args)
 	end
 	
 	def event_destroyed(args) #args == Character|Item

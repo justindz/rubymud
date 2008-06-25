@@ -11,7 +11,7 @@ class Command
 		@client = client
 		@online = true
 		@fighting = false
-		@fight_commands = %w{ say s look l attack kill k att status sta stat help get pickup drop destroy junk wield wie inventory inv equipment eq unwield unwie }
+		@fight_commands = %w{ say s look l attack kill k att status sta stat help get pickup drop destroy junk wield wie inventory inv equipment eq unwield unwie wear wea remove rem unwear unwea }
 	end
 	
 	def say(message)
@@ -32,8 +32,8 @@ class Command
 				@s.puts @c.area.npc(args[0]).description
 			elsif @c.area.has_item?(args[0])
 				@s.puts @c.area.item(args[0]).description
-			elsif @c.item(args[0])
-				@s.puts @c.item(args[0]).description
+			elsif @c.has_item?(args[0])
+				@s.puts @c.item_by_name(args[0]).description
 			elsif @c.area.exits.has_key?(args[0])
 				@s.puts @c.area.exits[args[0]] # this should be an exit description
 			else
@@ -166,8 +166,8 @@ class Command
 	
 	def wield(i)
 	  i = i[0].to_i
-		if @c.item(i)
-			target = @c.item(i)
+		if target = @c.item(i)
+			#target = @c.item(i)
 			if @c.wield(i)
 				@client.changed
 				@client.notify_observers(:wield, [@c, target])
@@ -196,6 +196,38 @@ class Command
 	end
 	
 	alias unwie unwield
+	
+	def wear(i)
+	  i = i[0].to_i
+	  if @c.item(i)
+	    target = @c.item(i)
+	    if @c.wear(i)
+	      @client.changed
+	      @client.notify_observers(:wear, [@c, target])
+	    else
+	      @s.puts "You fail to wear your #{target.name}.  Perhaps you are not strong enough in some way?  Perhaps you're already wearing something there?"
+	    end
+	  else
+	    @s.puts "You don't appear to have that."
+	  end
+	end
+	
+	alias wea wear
+	
+	def remove(type)
+	  target = @c.equipment[type[0].to_sym]
+	  if @c.remove(type[0].to_sym)
+	    @client.changed
+	    @client.notify_observers(:remove, [@c, target])
+	    @s.puts "You remove your #{target.name}."
+	  else
+	    @s.puts "You're not wearing anything there."
+	  end
+	end
+	
+	alias rem remove
+	alias unwear remove
+	alias unwea remove
 	
 	def inventory(args)
 		@s.puts "\nInventory\n---------\n"

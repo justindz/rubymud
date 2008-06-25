@@ -93,14 +93,17 @@ class Client
 			rescue NoMethodError => e
 				@s.puts "I don't recognize that command."
 				puts "NoMethodError for #{methd} using '#{args}': #{e}."
+				puts e.backtrace.join("\n")
 			rescue ArgumentError => e
 			  @s.puts "The arguments you've supplied are incorrect."
 			  puts "ArgumentError for #{methd} using '#{args}'."
 			  args.each do |arg|
 			    puts arg.class
 			  end
-			rescue TypeError
-				puts "TypeError for #{methd} : #{args} in client."
+			  puts e.backtrace.join("\n")
+			rescue TypeError => e
+				puts "TypeError for [#{methd},#{args}] in client: #{e}."
+				puts e.backtrace.join("\n")
 			end
 		end
 		disconnect(command)
@@ -220,6 +223,22 @@ class Client
 		else
 			@s.puts "#{args[0].name} stops wielding a #{args[1].name}."
 		end
+	end
+	
+	def event_wear(args) #args == [Character,Item]
+	  if args[0] == @c
+      @s.puts "You wear the #{args[1].name}."
+    else
+      @s.puts "#{args[0].name} wears a #{args[1].name}."
+    end
+	end
+	
+	def event_unwear(args) #args == [Characer,Item]
+	  if args[0] == @c
+	    @s.puts "You remove the #{args[1].name}."
+	  else
+	    @s.puts "#{args[0].name} stops wearing a #{args[1].name}."
+	  end
 	end
 	
 	def event_destroyed(args) #args == Character|Item

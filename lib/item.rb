@@ -10,6 +10,7 @@ class Item
 		@short_desc = short_desc
 		@description = description
 		@damage_bonus = damage_bonus
+		@armor_bonus = armor_bonus
 		@weight = weight
 		@value = value
 		@flags = Array.new
