@@ -22,7 +22,7 @@ area2.west = area.num
 region.areas[area.num] = area
 region.areas[area2.num] = area2
 
-player = Player.new('justindz', 'n1t5ujDZ')
+player = Player.new('justindz', '********')
 
 character = Character.new('God')
 character2 = Character.new('Dog')
