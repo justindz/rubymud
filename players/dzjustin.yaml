@@ -1,4 +1,4 @@
---- !ruby/object:Player 
+--- !ruby/object:Player  // hacked by m15x
 characters: 
   Dog: !ruby/object:Character 
     name: Dog
