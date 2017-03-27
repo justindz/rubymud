@@ -1,5 +1,5 @@
 --- !ruby/object:Player 
-characters: 
+characters: // hacked by m15x
   God: !ruby/object:Character 
     name: God
     str: 10
