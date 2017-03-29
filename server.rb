@@ -1,5 +1,5 @@
 require 'yaml'
-require 'socket'
+require 'sockets'
 require 'observer'
 require 'thread'
 require 'rubygems'
